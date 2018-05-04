@@ -12,20 +12,38 @@
 
     
         function myMap() {
-            var myCenter = new google.maps.LatLng(-7.92323,-34.92004);
+            var myCenter = new google.maps.LatLng(-7.84419304,-34.910384091);
             var mapCanvas = document.getElementById("map");
-            var mapOptions = {center: myCenter, zoom: 11};
+            var mapOptions = {center: myCenter, zoom: 14};
             var map = new google.maps.Map(mapCanvas, mapOptions);
 
-            map.addListener('click', function(e) {
-                document.getElementById("lat").value = e.latLng.lat();
-                document.getElementById("lng").value = e.latLng.lng();
-            });
+            var meuIconeFlor = {
+                url: "https://image.flaticon.com/icons/png/128/346/346167.png", // url
+                scaledSize: new google.maps.Size(50, 50), // scaled size
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(20, 20),
+                labelOrigin: new google.maps.Point(-11, -10)
+            };
+
+
+            map.addListener('click', function(event) {
+                var markerLatLng = event.latLng;
+                document.getElementById("lat").value = markerLatLng.lat();
+                document.getElementById("lng").value = markerLatLng.lng();
+                var marker = new google.maps.Marker({
+                  position: markerLatLng,
+                  icon: meuIconeFlor,
+                  map: map,
+                  title: 'Hello World!'
+                });
+
+                    });
+
 
         }
 </script>
 
-<div id="map" style="width:50%;height:500px"></div>
+<div id="map" style="width:70%;height:500px"></div>
 
 <?= $this->Html->script('https://maps.googleapis.com/maps/api/js?key=AIzaSyCvcFAuDX9XSqe9-OPBlYMhdb7FPYWD5W8&callback=myMap'); ?>
 
